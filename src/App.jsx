@@ -104,7 +104,6 @@ function App() {
           onClose={() => setIsModalOpen(false)}
         />
       )}
-      s
       {/* Add Recipe Modal — goes here */}
       <AddRecipeModal
         isOpen={isAddModalOpen}
