@@ -1,0 +1,22 @@
+.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 26px;
+  color: #fdf5ec;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoAccent {
+  color: #e8a840;
+}
+
+.logoTagline {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 10px;
+  color: #b8896a;
+  letter-spacing: 2px;
+  padding-left: 36px;
+  margin-top: 3px;
+}

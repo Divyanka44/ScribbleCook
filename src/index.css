@@ -1,0 +1,88 @@
+:root {
+  --parchment: #f5ece0;
+  --linen: #fdf5ec;
+  --espresso: #241208;
+  --walnut: #3d2010;
+  --terracotta: #b5502a;
+  --terracotta-light: #d4704a;
+  --honey: #e8a840;
+  --honey-light: #f0c060;
+  --brown-pale: #b8896a;
+  --border: rgba(61,32,16,0.15);
+  --border-warm: rgba(61,32,16,0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #36230a;
+  color: #fdf5ec;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:13px; font-weight:500; margin-bottom:6px; color:var(--brown-mid); }
+.form-input { width:100%; padding:11px 14px; border:1.5px solid var(--border-warm); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:15px; outline:none; background:var(--parchment); color:var(--ink); transition:border-color 0.2s; }
+.form-input:focus { border-color:var(--terracotta); background:var(--linen); }
+.form-submit { width:100%; padding:13px; background:var(--terracotta); color:white; border:none; border-radius:12px; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:500; cursor:pointer; transition:all 0.2s; margin-top:8px; }
+.form-submit:hover { background:var(--terracotta-light); }
+.form-submit:disabled { opacity:0.6; cursor:not-allowed; }
+.auth-toggle { text-align:center; margin-top:16px; font-size:14px; color:var(--brown-pale); }
+.auth-toggle a { color:var(--terracotta); cursor:pointer; text-decoration:underline; }
+
+
+/* MODALS */
+.overlay { position:fixed; inset:0; background:rgba(36,18,8,0.6); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(4px); }
+.modal { background:var(--linen); border-radius:20px; width:100%; max-width:480px; max-height:90vh; overflow-y:auto; box-shadow:0 20px 60px rgba(36,18,8,0.3); animation:slideUp 0.25s ease; border:1px solid var(--border-warm); }
+@keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+.modal-header { padding:24px 24px 0; display:flex; justify-content:space-between; align-items:flex-start; }
+.modal-title { font-family:'Playfair Display',serif; font-size:22px; color:#241208; }
+.modal-close { background:none; border:none; font-size:20px; cursor:pointer; color:var(--brown-pale); }
+.modal-body { padding:20px 24px 24px; color:#241208 !important; }
+
+
+.detail-img { width:100%; height:280px; object-fit:cover; border-radius:16px 16px 0 0; }
+.detail-img-placeholder { width:100%; height:280px; background:linear-gradient(135deg,#e8d0b0,#d4b48a); display:flex; align-items:center; justify-content:center; font-size:64px; border-radius:16px 16px 0 0; }
+.detail-stats { display:flex; gap:20px; padding:16px 24px; border-bottom:1px solid rgba(61,32,16,0.15); flex-wrap:wrap; }
+.stat { text-align:center; }
+.stat-val { font-family:'Playfair Display',serif; font-size:20px; color:#b5502a; }
+.stat-lbl { font-size:11px; color:#b8896a; margin-top:2px; }
+.detail-section { padding:0 24px 16px; }
+.detail-section h3 { font-family:'Playfair Display',serif; font-size:17px; margin-bottom:12px; color:#3d2010; border-bottom:1px solid rgba(61,32,16,0.15); padding-bottom:8px; }
+.ingredient-list { list-style:none; }
+.ingredient-list li { padding:7px 0; border-bottom:1px solid rgba(61,32,16,0.06); font-size:15px; display:flex; gap:8px; color:#241208; }
+.ingredient-list li::before { content:"•"; color:#e8a840; font-weight:bold; }
+.step { display:flex; gap:14px; margin-bottom:14px; align-items:flex-start; }
+.step-num { min-width:28px; height:28px; border-radius:50%; background:#3d2010; color:#e8a840; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; margin-top:2px; }
+.step-text { font-size:15px; line-height:1.6; color:#241208; }
+
+.btn-primary {
+  background: #b5502a;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #d4704a;
+}
+
