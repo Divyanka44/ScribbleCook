@@ -1,7 +1,7 @@
 import RecipeCard from "./RecipeCard";
 
 
-function FamilyRecipes({ recipes, onAddRecipe, onSelectRecipe, onUploadPhoto }) {
+function FamilyRecipes({ recipes, onAddRecipe, onSelectRecipe, onUploadPhoto, onDeleteRecipe }) {
   return (
     <div style={{ padding: '20px', color: '#ffffff' }}>
 
@@ -32,6 +32,7 @@ function FamilyRecipes({ recipes, onAddRecipe, onSelectRecipe, onUploadPhoto }) 
               category={recipe.category}
               imageUrl={recipe.image_url}
               onClick={() => onSelectRecipe(recipe)}
+              onDelete={() => onDeleteRecipe(recipe.id)}
             />
           ))}
         </div>

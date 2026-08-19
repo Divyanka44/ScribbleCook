@@ -46,6 +46,8 @@ function App() {
         if (error) {
           console.error('Error fetching recipes:', error);
         } else {
+          console.log('All recipes:', data); // ← add this
+          console.log('Family recipes:', data.filter(r => r.is_family_recipe || r.is_mummy_recipe)); // ← add this
         setMyRecipes(data.filter(r=> !r.is_family_recipe && !r.is_mummy_recipe));
         setFamilyRecipes(data.filter(r=> r.is_family_recipe || r.is_mummy_recipe));
         setCollectionRecipes([]);
@@ -59,17 +61,21 @@ function App() {
     fetchRecipes();
 
   }, [currentUser,refreshKey]); // ← run once on load
-  const handleSaveRecipe = async (recipeData) => {
+const handleSaveRecipe = async (recipeData) => {
+  if (!currentUser) return;
   const { error } = await db.from('recipes').insert({
     ...recipeData,
     user_id: currentUser.id,
     ingredients: JSON.stringify(recipeData.ingredients),
     instructions: JSON.stringify(recipeData.instructions),
   });
-  if (error) console.error(error);
-  else {
-    setRefreshKey(prev => prev + 1); // ← triggers refetch!
-    setIsAddModalOpen(false);        // ← close modal
+  if (error) {
+    console.error('Save error:', error);
+  } else {
+    console.log('Saved! Triggering refresh...'); // ← add this
+    setRefreshKey(prev => prev + 1);
+    setIsAddModalOpen(false);
+    setExtractedRecipe(null);
   }
 };
 
@@ -82,6 +88,20 @@ function App() {
       </div>
     );
   }
+  const handleDeleteRecipe = async (recipeId) => {
+  if (!window.confirm('Delete this recipe?')) return;
+  
+  const { error } = await db
+    .from('recipes')
+    .delete()
+    .eq('id', recipeId);
+    
+  if (error) {
+    console.error(error);
+  } else {
+    setRefreshKey(prev => prev + 1); // ← refresh list
+  }
+};
   console.log('isAddModalOpen state:', isAddModalOpen); 
   console.log('selectedRecipe:', selectedRecipe);
   return (
@@ -90,10 +110,10 @@ function App() {
       <Header onSignInClick={() => setIsModalOpen(true)} />
       <TabNav activeTab={activeTab}  onTabChange={setActiveTab}  />
      {activeTab === 'my' && (
-        <MyRecipes recipes={myRecipes} onSelectRecipe={setSelectedRecipe}/>
+        <MyRecipes recipes={myRecipes} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe}/>
       )}
      {activeTab === 'family' && (
-       <FamilyRecipes recipes={familyRecipes} onAddRecipe={() => setIsAddModalOpen(true)} onSelectRecipe={setSelectedRecipe} onUploadPhoto={() => setIsUploadModalOpen(true)}/>
+       <FamilyRecipes recipes={familyRecipes} onAddRecipe={() => setIsAddModalOpen(true)} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe} onUploadPhoto={() => setIsUploadModalOpen(true)}/>
       )}
      {activeTab === 'collection' && (
         <RecipeCollection />
