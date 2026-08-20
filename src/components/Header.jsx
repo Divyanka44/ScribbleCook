@@ -58,6 +58,7 @@ function Header({ onSignInClick }) {
           }}>
           Sign In
         </button>
+        
       )}
 
     </header>

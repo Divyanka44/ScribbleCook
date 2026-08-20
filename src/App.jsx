@@ -11,6 +11,7 @@ import { useAuth } from './context/AuthContext';
 import AddRecipeModal from './components/AddRecipeModal';
 import RecipeDetailModal from './components/RecipeDetailModal';
 import UploadModal from './components/UploadModal';
+import ShoppingListModal from './components/ShoppingListModal';
 
 function App() {
  
@@ -26,7 +27,8 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [extractedRecipe, setExtractedRecipe] = useState(null);
-
+  const [isShoppingModalOpen, setIsShoppingModalOpen] = useState(false);
+ 
   useEffect(() => {
     // Simulating a Supabase fetch for now
     console.log('Component loaded! Fetching recipes...');
@@ -107,10 +109,10 @@ const handleSaveRecipe = async (recipeData) => {
   return (
     <div style={{  background: '#36230aff', minHeight: '100vh',width: '100%', margin: '0',
     padding: '0'}}>
-      <Header onSignInClick={() => setIsModalOpen(true)} />
+      <Header onSignInClick={() => setIsModalOpen(true)} onShoppingList={() => setIsShoppingModalOpen(true)} />
       <TabNav activeTab={activeTab}  onTabChange={setActiveTab}  />
      {activeTab === 'my' && (
-        <MyRecipes recipes={myRecipes} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe}/>
+        <MyRecipes recipes={myRecipes} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe} onShoppingList={() => setIsShoppingModalOpen(true)}/>
       )}
      {activeTab === 'family' && (
        <FamilyRecipes recipes={familyRecipes} onAddRecipe={() => setIsAddModalOpen(true)} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe} onUploadPhoto={() => setIsUploadModalOpen(true)}/>
@@ -143,6 +145,11 @@ const handleSaveRecipe = async (recipeData) => {
     setIsUploadModalOpen(false);
     setIsAddModalOpen(true);
   }}
+/>
+<ShoppingListModal
+  isOpen={isShoppingModalOpen}
+  onClose={() => setIsShoppingModalOpen(false)}
+  recipes={[...myRecipes, ...familyRecipes]}
 />
 
 
