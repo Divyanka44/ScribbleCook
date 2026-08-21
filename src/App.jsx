@@ -64,7 +64,22 @@ function App() {
 
   }, [currentUser,refreshKey]); // ← run once on load
 const handleSaveRecipe = async (recipeData) => {
+  
   if (!currentUser) return;
+  if (extractedRecipe) {
+    await saveCorrection(
+      {
+        title: extractedRecipe.title,
+        ingredients: extractedRecipe.ingredients?.join('\n'),
+        instructions: extractedRecipe.instructions?.join('\n')
+      },
+      {
+        title: recipeData.title,
+        ingredients: recipeData.ingredients?.join('\n'),
+        instructions: recipeData.instructions?.join('\n')
+      }
+    );
+  }
   const { error } = await db.from('recipes').insert({
     ...recipeData,
     user_id: currentUser.id,
@@ -79,6 +94,29 @@ const handleSaveRecipe = async (recipeData) => {
     setIsAddModalOpen(false);
     setExtractedRecipe(null);
   }
+};
+const saveCorrection = async (original, corrected) => {
+  if (!currentUser) return;
+  
+  // Only save if something changed
+  const hasChanged = 
+    original.title !== corrected.title ||
+    original.ingredients !== corrected.ingredients ||
+    original.instructions !== corrected.instructions;
+
+  if (!hasChanged) return;
+
+  await db.from('ai_corrections').insert({
+    user_id: currentUser.id,
+    original_title: original.title,
+    corrected_title: corrected.title,
+    original_ingredients: original.ingredients,
+    corrected_ingredients: corrected.ingredients,
+    original_instructions: original.instructions,
+    corrected_instructions: corrected.instructions
+  });
+  
+  console.log('Correction saved! 🧠');
 };
 
   // Show loading while fetching
@@ -144,6 +182,7 @@ const handleSaveRecipe = async (recipeData) => {
     setExtractedRecipe(recipe);
     setIsUploadModalOpen(false);
     setIsAddModalOpen(true);
+    currentUser={currentUser} ;
   }}
 />
 <ShoppingListModal
