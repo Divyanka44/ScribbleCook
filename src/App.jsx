@@ -12,7 +12,7 @@ import AddRecipeModal from './components/AddRecipeModal';
 import RecipeDetailModal from './components/RecipeDetailModal';
 import UploadModal from './components/UploadModal';
 import ShoppingListModal from './components/ShoppingListModal';
-
+import UploadModal from './components/UploadModal';
 function App() {
  
   const [isLoading, setIsLoading] = useState(true);
