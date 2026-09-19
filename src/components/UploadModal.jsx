@@ -151,16 +151,14 @@ function UploadModal({ isOpen, onClose, onExtracted, currentUser }) {
               onChange={handleFileUpload}
             />
           </div>
-        ) : (
-          <div style={{ textAlign: 'center', padding: '30px' }}>
-            <p style={{ color: '#b8896a' }}>🤖 Reading recipe with AI...</p>
-            {corrections && corrections.length > 0 && (
-              <p style={{ color: '#b5502a', fontSize: '13px', marginTop: '8px' }}>
-                🧠 Using {corrections.length} past corrections to improve accuracy
-              </p>
-            )}
-          </div>
-        )}
+        ) :  (
+  <div style={{ textAlign: 'center', padding: '30px' }}>
+    <p style={{ color: '#b8896a' }}>🤖 Reading recipe with AI...</p>
+    <p style={{ color: '#b5502a', fontSize: '13px', marginTop: '8px' }}>
+      🧠 Applying past corrections to improve accuracy...
+    </p>
+  </div>
+)}
 
         {error && (
           <p style={{ color: '#b5502a', marginTop: '12px' }}>{error}</p>

@@ -12,7 +12,7 @@ import AddRecipeModal from './components/AddRecipeModal';
 import RecipeDetailModal from './components/RecipeDetailModal';
 import UploadModal from './components/UploadModal';
 import ShoppingListModal from './components/ShoppingListModal';
-import UploadModal from './components/UploadModal';
+
 function App() {
  
   const [isLoading, setIsLoading] = useState(true);
@@ -178,11 +178,11 @@ const saveCorrection = async (original, corrected) => {
      <UploadModal
   isOpen={isUploadModalOpen}
   onClose={() => setIsUploadModalOpen(false)}
+  currentUser={currentUser}  // ← add here as separate prop
   onExtracted={(recipe) => {
     setExtractedRecipe(recipe);
     setIsUploadModalOpen(false);
     setIsAddModalOpen(true);
-    currentUser={currentUser} ;
   }}
 />
 <ShoppingListModal
