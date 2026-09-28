@@ -27,16 +27,14 @@ const [instructions, setInstructions] = useState('');
     setServings(initialData.servings || '');
     setIngredients(initialData.ingredients?.join('\n') || '');
     setInstructions(initialData.instructions?.join('\n') || '');
-  }
-  else {
-    // ← add this else block
+  } else {
     setTitle('');
     setCookTime('');
     setServings('');
     setIngredients('');
     setInstructions('');
   }
-}, [initialData]);
+}, [initialData, isOpen]); // ← add isOpen here!
 
   // 3. early return ↓
   if (!isOpen) return null;
