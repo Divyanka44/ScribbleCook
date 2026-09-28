@@ -66,7 +66,10 @@ function App() {
 const handleSaveRecipe = async (recipeData) => {
   
   if (!currentUser) return;
+  console.log('extractedRecipe:', extractedRecipe); // ← add this
+  console.log('recipeData:', recipeData); // ← add this
   if (extractedRecipe) {
+    console.log('Saving correction...'); // ← add this
     await saveCorrection(
       {
         title: extractedRecipe.title,
