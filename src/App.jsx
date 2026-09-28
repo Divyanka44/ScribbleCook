@@ -178,7 +178,7 @@ const saveCorrection = async (original, corrected) => {
      <UploadModal
   isOpen={isUploadModalOpen}
   onClose={() => setIsUploadModalOpen(false)}
-  currentUser={currentUser}  // ← add here as separate prop
+  currentUser={currentUser}
   onExtracted={(recipe) => {
     setExtractedRecipe(recipe);
     setIsUploadModalOpen(false);
