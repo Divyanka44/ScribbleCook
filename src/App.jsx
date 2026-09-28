@@ -153,7 +153,10 @@ const saveCorrection = async (original, corrected) => {
         <MyRecipes recipes={myRecipes} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe} onShoppingList={() => setIsShoppingModalOpen(true)}/>
       )}
      {activeTab === 'family' && (
-       <FamilyRecipes recipes={familyRecipes} onAddRecipe={() => setIsAddModalOpen(true)} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe} onUploadPhoto={() => setIsUploadModalOpen(true)}/>
+       <FamilyRecipes recipes={familyRecipes} onAddRecipe={() => {
+    setExtractedRecipe(null);  // ← clear first!
+    setIsAddModalOpen(true);
+  }} onSelectRecipe={setSelectedRecipe} onDeleteRecipe={handleDeleteRecipe} onUploadPhoto={() => setIsUploadModalOpen(true)} />
       )}
      {activeTab === 'collection' && (
         <RecipeCollection />
