@@ -28,6 +28,14 @@ const [instructions, setInstructions] = useState('');
     setIngredients(initialData.ingredients?.join('\n') || '');
     setInstructions(initialData.instructions?.join('\n') || '');
   }
+  else {
+    // ← add this else block
+    setTitle('');
+    setCookTime('');
+    setServings('');
+    setIngredients('');
+    setInstructions('');
+  }
 }, [initialData]);
 
   // 3. early return ↓
