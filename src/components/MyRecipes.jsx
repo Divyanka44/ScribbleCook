@@ -1,4 +1,5 @@
 import RecipeCard from "./RecipeCard";
+import { useState } from 'react';
 
 const sampleRecipes = [
   {
@@ -23,7 +24,10 @@ const sampleRecipes = [
 
 function MyRecipes({ recipes, onSelectRecipe, onDeleteRecipe, onShoppingList }) {
   const allRecipes = [...sampleRecipes, ...(recipes || [])];
-
+  const [search, setSearch] = useState('');
+  const filtered = allRecipes.filter(r =>
+  r.title.toLowerCase().includes(search.toLowerCase())
+);
   return (
     <div style={{ padding: '20px', color: '#ffffff' }}>
       
@@ -35,6 +39,12 @@ function MyRecipes({ recipes, onSelectRecipe, onDeleteRecipe, onShoppingList }) 
         </button>
       </div>
 
+      <input
+      placeholder="Search recipes..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="search-input"
+      />
       {/* Recipe grid */}
       <div style={{
         display: 'grid',
@@ -42,7 +52,7 @@ function MyRecipes({ recipes, onSelectRecipe, onDeleteRecipe, onShoppingList }) 
         gap: '18px',
         alignItems: 'start'
       }}>
-        {allRecipes.map(recipe => (
+        {filtered.map(recipe => (
           <RecipeCard
             key={recipe.id}
             title={recipe.title}
@@ -55,6 +65,7 @@ function MyRecipes({ recipes, onSelectRecipe, onDeleteRecipe, onShoppingList }) 
             onDelete={() => onDeleteRecipe && onDeleteRecipe(recipe.id)}
           />
         ))}
+        
       </div>
 
     </div>
