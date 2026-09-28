@@ -21,6 +21,7 @@ const [instructions, setInstructions] = useState('');
                      onClose();
     };
     useEffect(() => {
+         console.log('useEffect ran — initialData:', initialData, 'isOpen:', isOpen);
   if (initialData) {
     setTitle(initialData.title || '');
     setCookTime(initialData.cook_time || '');
